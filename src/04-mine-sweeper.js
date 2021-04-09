@@ -28,10 +28,23 @@ function minesweeper(matrix) {
   for (let i = 0; i < maxi; i++) {
     field.push([]);
     for (let j = 0; j < maxj; j++) {
-      field[i].push([]);
-      
+      field[i].push(0);
+      const left = j === 0 ? 0 : j - 1;
+      const top = i === 0 ? 0 : i - 1;
+      const right = j + 1 === maxj ? j : j + 1;
+      const bottom = i + 1 === maxi ? i : i + 1;
+      for (let y = top; y <= bottom; y++) {
+        for (let x = left; x <= right; x++) {
+          if (!(x === j && y === i)) {
+            if (matrix[y][x]) {
+              field[i][j]++;
+            }
+          }
+        }
+      }
     }
   }
+  return field;
 }
 
 module.exports = minesweeper;
